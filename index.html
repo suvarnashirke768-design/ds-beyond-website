@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DS & Beyond</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:#fffaff;color:#35106f}
+nav{position:sticky;top:0;z-index:1000;width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 5%;background:#fff;box-shadow:0 2px 15px rgba(50,20,80,.1)}
+.logo{width:100px;height:65px;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:25px}
+.nav-links a{text-decoration:none;color:#4a2670;font-weight:600}
+.cart-button{background:#5b21b6;color:#fff!important;padding:11px 20px;border-radius:25px}
+.offer-popup{position:fixed;top:85px;right:20px;z-index:2000;background:#5b21b6;color:#fff;padding:13px 20px;border-radius:25px;font-size:13px;font-weight:bold;box-shadow:0 8px 25px rgba(50,20,100,.25)}
+.offer-popup span{color:#ffe8a3}
+.hero{max-width:1200px;margin:30px auto;padding:20px}
+.hero-box{min-height:470px;display:flex;justify-content:center;align-items:center;text-align:center;padding:50px;border-radius:30px;background:linear-gradient(135deg,#faf3ff,#ead9ff)}
+.hero-content{max-width:900px}
+.welcome{letter-spacing:5px;font-size:15px;font-weight:bold;color:#806098;margin-bottom:20px}
+.hero h1{font-family:Georgia,serif;font-size:clamp(45px,7vw,80px);line-height:1.05;color:#35106f;margin-bottom:30px}
+.slogan{font-family:Georgia,serif;font-size:clamp(22px,3vw,34px);font-weight:bold;color:#5b21b6;line-height:1.5;margin-bottom:30px}
+.hero-buttons{display:flex;justify-content:center;gap:15px;flex-wrap:wrap}
+.btn{display:inline-block;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:bold}
+.primary{background:#5b21b6;color:#fff}.secondary{background:#fff;color:#5b21b6;border:2px solid #5b21b6}
+section{max-width:1200px;margin:70px auto;padding:0 20px}
+.section-title{text-align:center;margin-bottom:30px}.section-title h2{font-family:Georgia,serif;font-size:38px;color:#3c146e}.section-title p{color:#80658f;margin-top:8px}
+.banner{width:100%;border-radius:25px;overflow:hidden;background:#f7efff;margin-bottom:35px}.banner img{display:block;width:100%;height:auto;max-height:550px;object-fit:contain}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product-card,.launch-card,.festive-card,.raksha-card{background:#fff;border:1px solid #e4d7f2;border-radius:22px;overflow:hidden;box-shadow:0 5px 20px rgba(60,20,100,.08)}
+.product-image{width:100%;height:260px;display:flex;align-items:center;justify-content:center;background:#faf5ff;overflow:hidden}
+.product-image img,.launch-image img{width:100%;height:100%;object-fit:contain;display:block}
+.product-info{padding:18px}.product-info h3{font-size:17px;margin-bottom:8px}
+.price,.launch-price{color:#5b21b6;font-size:22px;font-weight:bold;margin-bottom:6px}.description{color:#806d8c;font-size:13px;margin-bottom:15px}
+.add-cart{width:100%;border:none;background:#5b21b6;color:#fff;padding:12px;border-radius:22px;font-weight:bold;cursor:pointer}.add-cart:hover{background:#40117d}
+.launch-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:25px}.launch-image{width:100%;height:400px;display:flex;justify-content:center;align-items:center;background:#faf5ff;overflow:hidden}
+.launch-info{padding:22px;text-align:center}.launch-info h3{font-size:23px;margin-bottom:10px}.launch-price{font-size:25px;margin-bottom:15px}
+.festive-grid,.raksha-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.festive-card img{width:100%;height:400px;object-fit:contain;background:#faf5ff;display:block}.festive-info,.raksha-info{padding:18px;text-align:center}.festive-info h3{margin-bottom:8px;color:#41127a}.festive-info p{color:#806d8c;font-size:14px}
+.raksha-card img{width:100%;height:500px;object-fit:contain;background:#faf5ff;display:block}
+.about-box{background:linear-gradient(135deg,#f6edff,#fff8ff);padding:45px 30px;border-radius:28px;text-align:center}.about-box h2{font-family:Georgia,serif;font-size:35px;color:#40117a;margin-bottom:15px}.about-box p{max-width:700px;margin:auto;color:#725b80;line-height:1.7}
+.social-links,.footer-social{display:flex;justify-content:center;flex-wrap:wrap;gap:15px}.social-links a{color:#fff;background:#5b21b6;padding:13px 24px;border-radius:25px;font-weight:bold;text-decoration:none}
+footer{background:#35106f;color:#fff;text-align:center;padding:45px 20px 25px;margin-top:80px}.footer-logo{font-family:Georgia,serif;font-size:35px;font-weight:bold;letter-spacing:2px;margin-bottom:10px}.footer-slogan{font-size:14px;margin-bottom:25px}.footer-social a{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.5);padding:10px 18px;border-radius:20px}.copyright{margin-top:25px;font-size:12px;opacity:.7}
+.cart-overlay{position:fixed;inset:0;background:rgba(20,10,30,.45);z-index:4000;display:none}.cart-overlay.active{display:block}
+.cart-drawer{position:fixed;right:0;top:0;width:min(420px,90%);height:100vh;background:#fff;z-index:5000;transform:translateX(100%);transition:.3s;padding:25px;overflow-y:auto}.cart-drawer.active{transform:translateX(0)}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px}.close-cart{width:35px;height:35px;border:none;border-radius:50%;background:#eee1ff;color:#4b1685;font-size:20px;cursor:pointer}
+.cart-item{border-bottom:1px solid #eee;padding:15px 0}.cart-item h4{margin-bottom:7px}.cart-controls{display:flex;align-items:center;gap:10px;margin-top:10px}.qty{width:30px;height:30px;border:none;border-radius:50%;background:#eee1ff;color:#4b1685;cursor:pointer}.cart-total{margin-top:25px;font-size:23px;font-weight:bold;color:#5b21b6}
+@media(max-width:900px){.product-grid{grid-template-columns:repeat(2,1fr)}.festive-grid,.raksha-grid,.launch-grid{grid-template-columns:1fr}}
+@media(max-width:600px){.nav-links a:not(.cart-button){display:none}.hero-box{padding:35px 20px}.hero h1{font-size:45px}.product-grid{grid-template-columns:1fr}.product-image{height:320px}.launch-image{height:320px}.festive-card img{height:auto;max-height:650px}.raksha-card img{height:auto;max-height:750px}.offer-popup{left:15px;right:15px;text-align:center}}
+</style>
+</head>
+<body>
+
+<div class="offer-popup">✨ <span>Festive Offer Collection</span> — Don't Miss to Check! 💜</div>
+
+<nav>
+<div><img src="logo.png" class="logo" alt="DS & Beyond Logo"></div>
+<div class="nav-links">
+<a href="#home">Home</a><a href="#collection">Collection</a><a href="#new-launch">New Launch</a><a href="#festive">Festive</a><a href="#about">About</a><a href="#contact">Contact</a>
+<a href="#" class="cart-button" onclick="openCart();return false;">🛒 Cart <span id="cartCount">0</span></a>
+</div>
+</nav>
+
+<section id="home" class="hero">
+<div class="hero-box"><div class="hero-content">
+<div class="welcome">WELCOME TO DS & BEYOND</div>
+<h1>Beautiful Gifts,<br>Timeless Style.</h1>
+<div class="slogan">Jab DS & Beyond ho pass,<br>to rishta ho aur bhi khass.</div>
+<div class="hero-buttons"><a href="#collection" class="btn primary">Explore Collection</a><a href="#" class="btn secondary" onclick="openCart();return false;">View Cart</a></div>
+</div></div>
+</section>
+
+<section id="collection">
+<div class="section-title"><h2>Regular Collection</h2><p>Everyday cute & stylish accessories 💜</p></div>
+<div class="banner"><img src="catalog-banner.png" alt="DS & Beyond Collection"></div>
+<div class="product-grid">
+
+<div class="product-card"><div class="product-image"><img src="satin-scrunchies.png" alt="Satin Scrunchies"></div><div class="product-info">
+<h3>Satin Scrunchies Combo</h3><div class="price">₹99</div><div class="description">2 Pieces</div>
+<button class="add-cart" onclick="addToCart('satin','Satin Scrunchies Combo',99)">ADD TO CART 🛒</button>
+</div></div>
+
+<div class="product-card"><div class="product-image"><img src="designer-clips.png" alt="Hair Clips"></div><div class="product-info">
+<h3>Hair Clips Combo</h3><div class="price">₹149</div><div class="description">2 Pieces</div>
+<button class="add-cart" onclick="addToCart('hairclips','Hair Clips Combo',149)">ADD TO CART 🛒</button>
+</div></div>
+
+<div class="product-card"><div class="product-image"><img src="korean-scrunchie.png" alt="Designer Scrunchies"></div><div class="product-info">
+<h3>Designer Scrunchies</h3><div class="price">₹149</div><div class="description">2 Pieces</div>
+<button class="add-cart" onclick="addToCart('designer-scrunchies','Designer Scrunchies',149)">ADD TO CART 🛒</button>
+</div></div>
+
+<div class="product-card"><div class="product-image"><img src="designer-small-hair clips.png" alt="Designer Small Clips"></div><div class="product-info">
+<h3>Designer Small Clips</h3><div class="price">₹149</div><div class="description">3 Pieces</div>
+<button class="add-cart" onclick="addToCart('designer-small-clips','Designer Small Clips',149)">ADD TO CART 🛒</button>
+</div></div>
+
+<div class="product-card"><div class="product-image"><img src="kidsbracelet-hairclips.png" alt="Kids Bracelet Combo"></div><div class="product-info">
+<h3>Kids Bracelet + Small Hair Clip</h3><div class="price">₹159</div><div class="description">Cute Kids Combo</div>
+<button class="add-cart" onclick="addToCart('kids-combo','Kids Bracelet + Small Hair Clip',159)">ADD TO CART 🛒</button>
+</div></div>
+
+</div>
+</section>
+
+<section id="new-launch">
+<div class="section-title"><h2>DS New Launch</h2><p>Trendy charms for your everyday style ✨</p></div>
+<div class="launch-grid">
+
+<div class="launch-card"><div class="launch-image"><img src="phone-charm.png" alt="Phone Charm"></div><div class="launch-info">
+<h3>Phone Charm</h3><div class="launch-price">₹150</div>
+<button class="add-cart" onclick="addToCart('phone-charm','Phone Charm',150)">ADD TO CART 🛒</button>
+</div></div>
+
+<div class="launch-card"><div class="launch-image"><img src="bag-charm.png" alt="Bag Charm"></div><div class="launch-info">
+<h3>Bag Charm</h3><div class="launch-price">₹199</div>
+<button class="add-cart" onclick="addToCart('bag-charm','Bag Charm',199)">ADD TO CART 🛒</button>
+</div></div>
+
+</div>
+</section>
+
+<section id="festive">
+<div class="section-title"><h2>Festive Collections</h2><p>Special gifting for every celebration 💜</p></div>
+<div class="festive-grid">
+
+<div class="festive-card"><img src="raksha-new-1.png" alt="Raksha Bandhan New Collection"><div class="festive-info"><h3>Raksha Bandhan New Collection</h3><p>Special gifting combos made with love 🎁</p></div></div>
+<div class="festive-card"><img src="navrang.png" alt="Navrang"><div class="festive-info"><h3>Navrang Collection</h3><p>Festive accessories for Navratri</p></div></div>
+<div class="festive-card"><img src="diwali.png" alt="Diwali"><div class="festive-info"><h3>Diwali Collection</h3><p>New product launch soon for Diwali ✨</p></div></div>
+
+</div>
+</section>
+
+<section id="raksha">
+<div class="section-title"><h2>Raksha Bandhan New Collection</h2><p>Special gifting combos made with love 🎁</p></div>
+<div class="raksha-grid">
+
+<div class="raksha-card"><img src="raksha-new-1.png" alt="Raksha Bandhan Combo 1"><div class="raksha-info"><h3>Raksha Bandhan Gift Combo</h3><div class="price">₹249</div><p style="margin-bottom:15px;color:#806d8c;">1 Combo • Gift Combo</p><button class="add-cart" onclick="addToCart('rakhi-249','Raksha Bandhan Mini Combo',249)">ADD TO CART 🛒</button></div></div>
+
+<div class="raksha-card"><img src="raksha-new-2.png" alt="Raksha Bandhan Combo 2"><div class="raksha-info"><h3>Raksha Bandhan Gift Combo</h3><div class="price">₹249</div><p style="margin-bottom:15px;color:#806d8c;">1 Combo • Gift Combo</p><button class="add-cart" onclick="addToCart('rakhi-249-2','Raksha Bandhan Mini Combo',249)">ADD TO CART 🛒</button></div></div>
+
+<div class="raksha-card"><img src="raksha-new-3.png" alt="Raksha Bandhan Combo 3"><div class="raksha-info"><h3>Raksha Bandhan Gift Combo</h3><div class="price">₹249</div><p style="margin-bottom:15px;color:#806d8c;">1 Combo • Gift Combo</p><button class="add-cart" onclick="addToCart('rakhi-249-3','Raksha Bandhan Mini Combo',249)">ADD TO CART 🛒</button></div></div>
+
+</div>
+</section>
+
+<section id="about"><div class="about-box"><h2>About DS & Beyond</h2><p>DS & Beyond brings together cute gifting ideas, stylish accessories and special collections made to make every little moment extra special.</p></div></section>
+
+<section id="contact">
+<div class="section-title"><h2>Connect With Us</h2><p>Follow DS & Beyond 💜</p></div>
+<div class="social-links">
+<a href="https://www.instagram.com/dsandbeyondofficial/" target="_blank">📷 Instagram</a>
+<a href="https://www.youtube.com/@Dsandbeyond25" target="_blank">▶️ YouTube</a>
+<a href="https://wa.me/919870630288" target="_blank">💬 WhatsApp</a>
+</div>
+</section>
+
+<footer>
+<div class="footer-logo">DS & BEYOND</div>
+<div class="footer-slogan">Jab DS & Beyond ho pass,<br>to rishta ho aur bhi khass.</div>
+<div class="footer-social">
+<a href="https://www.instagram.com/dsandbeyondofficial/" target="_blank">Instagram</a>
+<a href="https://www.youtube.com/@Dsandbeyond25" target="_blank">YouTube</a>
+<a href="https://wa.me/919870630288" target="_blank">WhatsApp</a>
+</div>
+<div class="copyright">© 2026 DS & Beyond. All Rights Reserved.</div>
+</footer>
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+<div class="cart-header"><h2>Your Cart 🛒</h2><button class="close-cart" onclick="closeCart()">×</button></div>
+<div id="cartItems"><p style="color:#806d8c;">Your cart is empty.</p></div>
+<div class="cart-total">Total: ₹<span id="cartTotal">0</span></div>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem("dsb_cart")||"[]");
+
+function addToCart(id,name,price){
+ const existing=cart.find(item=>item.id===id);
+ if(existing){existing.qty++}
+ else{cart.push({id:id,name:name,price:price,qty:1})}
+ saveCart();renderCart();openCart();
+}
+function saveCart(){localStorage.setItem("dsb_cart",JSON.stringify(cart))}
+function changeQty(id,change){
+ const item=cart.find(item=>item.id===id);
+ if(!item)return;
+ item.qty+=change;
+ if(item.qty<=0)cart=cart.filter(item=>item.id!==id);
+ saveCart();renderCart();
+}
+function renderCart(){
+ const container=document.getElementById("cartItems");
+ const count=document.getElementById("cartCount");
+ const total=document.getElementById("cartTotal");
+ if(cart.length===0){
+  container.innerHTML='<p style="color:#806d8c;">Your cart is empty.</p>';
+  count.textContent="0";total.textContent="0";return;
+ }
+ container.innerHTML="";
+ let totalItems=0,totalPrice=0;
+ cart.forEach(item=>{
+  totalItems+=item.qty;totalPrice+=item.price*item.qty;
+  const div=document.createElement("div");div.className="cart-item";
+  div.innerHTML=`<h4>${item.name}</h4><p>₹${item.price} × ${item.qty}</p>
+  <div class="cart-controls">
+  <button class="qty" onclick="changeQty('${item.id}',-1)">−</button>
+  <strong>${item.qty}</strong>
+  <button class="qty" onclick="changeQty('${item.id}',1)">+</button>
+  </div>`;
+  container.appendChild(div);
+ });
+ count.textContent=totalItems;total.textContent=totalPrice;
+}
+function openCart(){
+ document.getElementById("cartDrawer").classList.add("active");
+ document.getElementById("cartOverlay").classList.add("active");
+}
+function closeCart(){
+ document.getElementById("cartDrawer").classList.remove("active");
+ document.getElementById("cartOverlay").classList.remove("active");
+}
+renderCart();
+</script>
+</body>
+</html>
